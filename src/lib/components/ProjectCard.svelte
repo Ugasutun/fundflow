@@ -37,8 +37,8 @@
 
 <style>
   .project-card {
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.07);
+    background: var(--color-card-bg);
+    border: 1px solid var(--color-card-border-strong);
     border-radius: 12px;
     padding: 1.25rem;
     display: flex;
@@ -46,28 +46,28 @@
     gap: 0.75rem;
     transition: border-color 0.2s, background 0.2s;
   }
-  .project-card:hover { border-color: rgba(125,211,252,0.2); background: rgba(255,255,255,0.05); }
+  .project-card:hover { border-color: var(--color-accent-border-card); background: var(--color-card-bg-hover); }
   .project-header { display: flex; align-items: center; gap: 0.75rem; }
   .project-icon {
     width: 38px; height: 38px; border-radius: 10px;
-    background: rgba(125,211,252,0.1); border: 1px solid rgba(125,211,252,0.2);
-    color: #7dd3fc; display: flex; align-items: center; justify-content: center;
+    background: var(--color-accent-bg-strong); border: 1px solid var(--color-accent-border);
+    color: var(--color-accent); display: flex; align-items: center; justify-content: center;
     font-family: 'DM Mono', monospace; font-size: 1rem; font-weight: 600; flex-shrink: 0;
   }
-  .project-name { margin: 0 0 2px; font-size: 0.95rem; font-weight: 500; color: #e2e8f0; }
-  .project-domain { font-size: 0.75rem; color: #475569; text-decoration: none; font-family: 'DM Mono', monospace; }
-  .project-domain:hover { color: #7dd3fc; }
+  .project-name { margin: 0 0 2px; font-size: 0.95rem; font-weight: 500; color: var(--color-text); }
+  .project-domain { font-size: 0.75rem; color: var(--color-text-dim); text-decoration: none; font-family: 'DM Mono', monospace; }
+  .project-domain:hover { color: var(--color-accent); }
   .project-desc {
-    margin: 0; font-size: 0.8rem; color: #64748b; line-height: 1.5;
+    margin: 0; font-size: 0.8rem; color: var(--color-text-subtle); line-height: 1.5;
     display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
   }
   .project-footer { display: flex; justify-content: space-between; align-items: center; margin-top: auto; }
   .stat { display: flex; align-items: baseline; gap: 4px; }
-  .stat-val { font-size: 1rem; font-weight: 600; color: #f1f5f9; font-family: 'DM Mono', monospace; }
-  .stat-label { font-size: 0.7rem; color: #475569; }
+  .stat-val { font-size: 1rem; font-weight: 600; color: var(--color-heading); font-family: 'DM Mono', monospace; }
+  .stat-label { font-size: 0.7rem; color: var(--color-text-dim); }
   .funded-badge {
     font-size: 0.7rem; padding: 2px 8px; border-radius: 20px;
-    background: rgba(125,211,252,0.07); color: #38bdf8;
-    border: 1px solid rgba(125,211,252,0.15); font-family: 'DM Mono', monospace;
+    background: var(--color-accent-bg-subtle); color: var(--color-accent-hover);
+    border: 1px solid var(--color-accent-border-faint); font-family: 'DM Mono', monospace;
   }
 </style>

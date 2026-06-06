@@ -34,9 +34,9 @@ export function formatDate(isoString: string): string {
 }
 
 export function grantStatusColor(status: string): string {
-  return status === 'active' ? '#1D9E75'
-    : status === 'seeking' ? '#EF9F27'
-    : '#7aab93';
+  return status === 'active' ? 'var(--color-grant-active)'
+    : status === 'seeking' ? 'var(--color-grant-seeking)'
+    : 'var(--color-grant-completed)';
 }
 
 export function grantStatusLabel(status: string): string {

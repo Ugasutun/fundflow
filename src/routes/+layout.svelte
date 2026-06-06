@@ -1,6 +1,8 @@
 <script lang="ts">
   import '../app.css';
   import Navbar from '$lib/components/Navbar.svelte';
+  import '$lib/stores/theme';
+
   let { children } = $props();
 </script>
 
@@ -13,11 +15,12 @@
 
 <style>
   :global(body) {
-    background: #060810;
-    color: #e2e8f0;
+    background: var(--color-surface);
+    color: var(--color-text);
     font-family: 'Syne', sans-serif;
     margin: 0;
     min-height: 100vh;
+    transition: background 0.2s ease, color 0.2s ease;
   }
   :global(*) { box-sizing: border-box; }
   .app-shell { min-height: 100vh; }

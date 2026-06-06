@@ -176,15 +176,15 @@
     gap: 1.25rem;
     margin-bottom: 2.5rem;
     padding-bottom: 2rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    border-bottom: 1px solid var(--color-divider);
   }
 
   .avatar {
     width: 64px;
     height: 64px;
     border-radius: 16px;
-    background: rgba(125, 211, 252, 0.1);
-    border: 1px solid rgba(125, 211, 252, 0.2);
+    background: var(--color-accent-bg-strong);
+    border: 1px solid var(--color-accent-border);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -193,12 +193,12 @@
   }
 
   .avatar-img { width: 100%; height: 100%; object-fit: cover; }
-  .avatar-placeholder { font-size: 1.5rem; color: #7dd3fc; }
+  .avatar-placeholder { font-size: 1.5rem; color: var(--color-accent); }
 
   .profile-name {
     font-size: 1.4rem;
     font-weight: 600;
-    color: #f1f5f9;
+    color: var(--color-heading);
     margin: 0 0 0.25rem;
     letter-spacing: -0.02em;
   }
@@ -206,17 +206,17 @@
   .profile-handle {
     font-family: 'DM Mono', monospace;
     font-size: 0.8rem;
-    color: #475569;
+    color: var(--color-text-dim);
     margin: 0 0 0.5rem;
   }
 
-  .profile-bio { font-size: 0.875rem; color: #64748b; margin: 0; }
+  .profile-bio { font-size: 0.875rem; color: var(--color-text-subtle); margin: 0; }
   .addr-mono { font-family: 'DM Mono', monospace; }
 
   .copy-profile-btn {
-    background: rgba(125, 211, 252, 0.08);
-    border: 1px solid rgba(125, 211, 252, 0.22);
-    color: #7dd3fc;
+    background: var(--color-accent-bg);
+    border: 1px solid var(--color-accent-border-strong);
+    color: var(--color-accent);
     padding: 0.3rem 0.75rem;
     border-radius: 6px;
     font-size: 0.75rem;
@@ -227,14 +227,14 @@
   }
 
   .copy-profile-btn:hover {
-    background: rgba(125, 211, 252, 0.14);
-    border-color: rgba(125, 211, 252, 0.4);
+    background: var(--color-accent-bg-hover);
+    border-color: var(--color-accent-border-hover);
   }
 
   .link-github-btn {
     background: none;
-    border: 1px dashed rgba(125, 211, 252, 0.3);
-    color: #475569;
+    border: 1px dashed var(--color-accent-border-dashed);
+    color: var(--color-text-dim);
     padding: 0.3rem 0.75rem;
     border-radius: 6px;
     font-size: 0.75rem;
@@ -244,7 +244,7 @@
     margin-top: 0.25rem;
   }
 
-  .link-github-btn:hover { color: #7dd3fc; border-color: rgba(125, 211, 252, 0.5); }
+  .link-github-btn:hover { color: var(--color-accent); border-color: var(--color-accent-border-dashed-hover); }
 
   .github-input-row {
     display: flex;
@@ -256,10 +256,10 @@
   .github-input {
     flex: 1;
     padding: 0.5rem 0.75rem;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--color-input-bg);
+    border: 1px solid var(--color-input-border-strong);
     border-radius: 8px;
-    color: #e2e8f0;
+    color: var(--color-text);
     font-family: 'DM Mono', monospace;
     font-size: 0.85rem;
     outline: none;
@@ -267,8 +267,8 @@
 
   .btn-confirm {
     padding: 0.5rem 1rem;
-    background: #7dd3fc;
-    color: #060810;
+    background: var(--color-accent);
+    color: var(--color-text-on-accent);
     border: none;
     border-radius: 8px;
     font-family: 'DM Mono', monospace;
@@ -280,8 +280,8 @@
   .btn-cancel {
     padding: 0.5rem 0.75rem;
     background: transparent;
-    color: #475569;
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: var(--color-text-dim);
+    border: 1px solid var(--color-input-border);
     border-radius: 8px;
     font-family: 'DM Mono', monospace;
     font-size: 0.8rem;
@@ -293,7 +293,7 @@
   .section-title {
     font-size: 1rem;
     font-weight: 500;
-    color: #94a3b8;
+    color: var(--color-text-secondary);
     margin: 0 0 1rem;
     display: flex;
     align-items: center;
@@ -303,8 +303,8 @@
   }
 
   .count-badge {
-    background: rgba(255, 255, 255, 0.06);
-    color: #475569;
+    background: var(--color-badge-bg);
+    color: var(--color-text-dim);
     font-size: 0.7rem;
     padding: 1px 7px;
     border-radius: 20px;
@@ -319,7 +319,7 @@
   .empty {
     font-family: 'DM Mono', monospace;
     font-size: 0.8rem;
-    color: #334155;
+    color: var(--color-text-faint);
     padding: 1.5rem 0;
   }
 
@@ -330,8 +330,8 @@
   }
 
   .repo-card {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: var(--color-card-bg);
+    border: 1px solid var(--color-card-border);
     border-radius: 10px;
     padding: 1rem;
     text-decoration: none;
@@ -339,18 +339,18 @@
     transition: border-color 0.2s;
   }
 
-  .repo-card:hover { border-color: rgba(125, 211, 252, 0.2); }
+  .repo-card:hover { border-color: var(--color-accent-border-card); }
 
   .repo-name {
     font-family: 'DM Mono', monospace;
     font-size: 0.85rem;
-    color: #7dd3fc;
+    color: var(--color-accent);
     margin: 0 0 0.4rem;
   }
 
   .repo-desc {
     font-size: 0.78rem;
-    color: #475569;
+    color: var(--color-text-dim);
     margin: 0 0 0.75rem;
     line-height: 1.5;
     display: -webkit-box;
@@ -364,11 +364,11 @@
   .repo-tag {
     font-family: 'DM Mono', monospace;
     font-size: 0.72rem;
-    color: #334155;
-    background: rgba(255, 255, 255, 0.04);
+    color: var(--color-text-faint);
+    background: var(--color-tag-bg);
     padding: 2px 7px;
     border-radius: 4px;
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--color-card-border);
   }
 
   .state-msg {
@@ -376,7 +376,7 @@
     align-items: center;
     gap: 0.75rem;
     padding: 3rem 0;
-    color: #475569;
+    color: var(--color-text-dim);
     font-family: 'DM Mono', monospace;
     font-size: 0.875rem;
   }
@@ -384,8 +384,8 @@
   .spinner {
     width: 18px;
     height: 18px;
-    border: 2px solid rgba(125, 211, 252, 0.2);
-    border-top-color: #7dd3fc;
+    border: 2px solid var(--color-spinner-track);
+    border-top-color: var(--color-spinner-head);
     border-radius: 50%;
     animation: spin 0.8s linear infinite;
     flex-shrink: 0;
