@@ -3,7 +3,6 @@
   import { onDestroy, onMount } from 'svelte';
   import { fetchStreams } from '$lib/api/drips';
   import { fetchGithubUser, fetchGithubRepos } from '$lib/api/github';
-  import Skeleton from '$lib/components/Skeleton.svelte';
   import StreamCard from '$lib/components/StreamCard.svelte';
 
   const address = $derived(page.params.address);
@@ -19,11 +18,6 @@
   let copyResetTimer: ReturnType<typeof setTimeout> | null = null;
 
   onMount(async () => {
-    if (!address) {
-      loading = false;
-      return;
-    }
-
     streams = await fetchStreams(address);
     loading = false;
   });
@@ -120,25 +114,7 @@
 {/if}
 
 {#if loading}
-  <div class="sections" aria-label="Loading profile streams">
-    <section>
-      <h2 class="section-title">Incoming streams</h2>
-      <div class="streams-grid">
-        {#each Array(3) as _, index (index)}
-          <Skeleton type="stream" />
-        {/each}
-      </div>
-    </section>
-
-    <section>
-      <h2 class="section-title">Outgoing streams</h2>
-      <div class="streams-grid">
-        {#each Array(3) as _, index (index)}
-          <Skeleton type="stream" />
-        {/each}
-      </div>
-    </section>
-  </div>
+  <div class="state-msg"><div class="spinner"></div> Loading streams from Drips...</div>
 {:else}
   <div class="sections">
     <section>
@@ -395,4 +371,25 @@
     border: 1px solid rgba(255, 255, 255, 0.06);
   }
 
+  .state-msg {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 3rem 0;
+    color: #475569;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.875rem;
+  }
+
+  .spinner {
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(125, 211, 252, 0.2);
+    border-top-color: #7dd3fc;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    flex-shrink: 0;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
 </style>

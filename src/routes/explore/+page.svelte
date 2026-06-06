@@ -2,7 +2,6 @@
   import { onMount } from 'svelte';
   import { fetchProjects } from '$lib/api/drips';
   import ProjectCard from '$lib/components/ProjectCard.svelte';
-  import Skeleton from '$lib/components/Skeleton.svelte';
 
   let projects: any[] = $state([]);
   let loading = $state(true);
@@ -41,11 +40,9 @@
 </div>
 
 {#if loading}
-  <div class="projects-count">Loading projects</div>
-  <div class="projects-grid" aria-label="Loading projects">
-    {#each Array(6) as _, index (index)}
-      <Skeleton type="project" />
-    {/each}
+  <div class="state-msg">
+    <div class="spinner"></div>
+    <span>Loading projects from Drips...</span>
   </div>
 {:else if error}
   <div class="state-msg error">{error}</div>
@@ -107,4 +104,13 @@
     font-size: 0.875rem;
   }
   .state-msg.error { color: #f87171; }
+  .spinner {
+    width: 18px; height: 18px;
+    border: 2px solid rgba(125,211,252,0.2);
+    border-top-color: #7dd3fc;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    flex-shrink: 0;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
 </style>
