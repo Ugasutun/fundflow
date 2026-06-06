@@ -57,36 +57,36 @@
 
 <style>
   .stream-card {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.07);
+    background: var(--color-card-bg);
+    border: 1px solid var(--color-card-border-strong);
     border-radius: 12px;
     padding: 1.25rem;
     transition: border-color 0.2s;
   }
-  .stream-card:hover { border-color: rgba(125, 211, 252, 0.2); }
+  .stream-card:hover { border-color: var(--color-accent-border-card); }
   .stream-card.paused { opacity: 0.6; }
   .stream-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
-  .stream-direction { font-family: 'DM Mono', monospace; font-size: 0.75rem; color: #64748b; letter-spacing: 0.05em; }
-  .stream-direction.incoming { color: #34d399; }
+  .stream-direction { font-family: 'DM Mono', monospace; font-size: 0.75rem; color: var(--color-text-subtle); letter-spacing: 0.05em; }
+  .stream-direction.incoming { color: var(--color-success); }
   .stream-status {
     font-size: 0.7rem; padding: 2px 8px; border-radius: 20px;
-    background: rgba(52, 211, 153, 0.1); color: #34d399;
-    border: 1px solid rgba(52, 211, 153, 0.2); font-family: 'DM Mono', monospace;
+    background: var(--color-success-bg-strong); color: var(--color-success);
+    border: 1px solid var(--color-success-border); font-family: 'DM Mono', monospace;
   }
-  .stream-status.paused { background: rgba(100,116,139,0.1); color: #64748b; border-color: rgba(100,116,139,0.2); }
+  .stream-status.paused { background: var(--color-inactive-bg); color: var(--color-text-subtle); border-color: var(--color-inactive-border); }
   .stream-amount { display: flex; align-items: baseline; gap: 0.4rem; margin-bottom: 1rem; }
-  .amount-val { font-size: 1.75rem; font-weight: 600; color: #f1f5f9; font-family: 'DM Mono', monospace; letter-spacing: -0.02em; }
-  .amount-unit { font-size: 0.8rem; color: #64748b; font-family: 'DM Mono', monospace; }
+  .amount-val { font-size: 1.75rem; font-weight: 600; color: var(--color-heading); font-family: 'DM Mono', monospace; letter-spacing: -0.02em; }
+  .amount-unit { font-size: 0.8rem; color: var(--color-text-subtle); font-family: 'DM Mono', monospace; }
   .stream-meta { display: flex; flex-direction: column; gap: 0.4rem; }
   .meta-row { display: flex; justify-content: space-between; font-size: 0.8rem; }
-  .meta-label { color: #475569; font-family: 'DM Mono', monospace; }
-  .meta-val { color: #94a3b8; }
-  .meta-addr { color: #7dd3fc; text-decoration: none; font-family: 'DM Mono', monospace; }
+  .meta-label { color: var(--color-text-dim); font-family: 'DM Mono', monospace; }
+  .meta-val { color: var(--color-text-secondary); }
+  .meta-addr { color: var(--color-accent); text-decoration: none; font-family: 'DM Mono', monospace; }
   .meta-addr:hover { text-decoration: underline; }
-  .stream-bar { margin-top: 1rem; height: 2px; background: rgba(255,255,255,0.05); border-radius: 2px; overflow: hidden; }
+  .stream-bar { margin-top: 1rem; height: 2px; background: var(--color-bar-track); border-radius: 2px; overflow: hidden; }
   .stream-bar-fill {
     height: 100%; width: 60%;
-    background: linear-gradient(90deg, #7dd3fc, #34d399);
+    background: linear-gradient(90deg, var(--color-gradient-start), var(--color-gradient-end));
     border-radius: 2px;
     animation: flow 3s ease-in-out infinite;
   }

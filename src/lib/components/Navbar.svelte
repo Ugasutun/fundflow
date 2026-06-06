@@ -1,6 +1,8 @@
 <script lang="ts">
   import { walletAddress, shortAddress, ensName, isConnecting, connectWallet, disconnectWallet } from '$lib/stores/wallet';
+  import { theme } from '$lib/stores/theme';
   import { page } from '$app/state';
+  import { SunIcon, MoonIcon } from 'heroicons-svelte/24/solid';
 
   const links = [
     { href: '/', label: 'Home' },
@@ -40,6 +42,30 @@
         </button>
       {/if}
     </div>
+    <div class="theme-toggle" role="group" aria-label="Theme">
+      <button
+        type="button"
+        class="theme-btn"
+        class:active={$theme === 'light'}
+        onclick={() => theme.set('light')}
+        title="Light mode"
+        aria-label="Light mode"
+        aria-pressed={$theme === 'light'}
+      >
+        <SunIcon />
+      </button>
+      <button
+        type="button"
+        class="theme-btn"
+        class:active={$theme === 'dark'}
+        onclick={() => theme.set('dark')}
+        title="Dark mode"
+        aria-label="Dark mode"
+        aria-pressed={$theme === 'dark'}
+      >
+        <MoonIcon />
+      </button>
+    </div>
   </div>
 </nav>
 
@@ -48,9 +74,10 @@
     position: sticky;
     top: 0;
     z-index: 50;
-    background: rgba(6, 8, 16, 0.85);
+    background: var(--color-nav-bg);
     backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    border-bottom: 1px solid var(--color-nav-border);
+    transition: background 0.2s ease, border-color 0.2s ease;
   }
   .nav-inner {
     max-width: 1200px;
@@ -69,21 +96,21 @@
     font-family: 'DM Mono', monospace;
     font-size: 1.1rem;
     font-weight: 500;
-    color: #e2e8f0;
+    color: var(--color-nav-text-hover);
   }
-  .logo-icon { color: #7dd3fc; font-size: 1.2rem; }
+  .logo-icon { color: var(--color-nav-accent); font-size: 1.2rem; }
   .nav-links { display: flex; gap: 0.25rem; flex: 1; }
   .nav-link {
     padding: 0.35rem 0.75rem;
     border-radius: 6px;
     font-size: 0.875rem;
-    color: #94a3b8;
+    color: var(--color-nav-text);
     text-decoration: none;
     transition: color 0.15s, background 0.15s;
     font-family: 'DM Mono', monospace;
   }
-  .nav-link:hover { color: #e2e8f0; background: rgba(255,255,255,0.05); }
-  .nav-link.active { color: #7dd3fc; }
+  .nav-link:hover { color: var(--color-nav-text-hover); background: var(--color-hover-overlay); }
+  .nav-link.active { color: var(--color-nav-accent); }
   .wallet-area { display: flex; align-items: center; gap: 0.5rem; }
   .wallet-btn {
     padding: 0.4rem 1rem;
@@ -91,24 +118,24 @@
     font-size: 0.8rem;
     font-family: 'DM Mono', monospace;
     cursor: pointer;
-    border: 1px solid rgba(125, 211, 252, 0.3);
-    background: rgba(125, 211, 252, 0.08);
-    color: #7dd3fc;
+    border: 1px solid var(--color-accent-border-emphasis);
+    background: var(--color-accent-bg);
+    color: var(--color-accent);
     transition: all 0.15s;
   }
-  .wallet-btn:hover { background: rgba(125, 211, 252, 0.15); }
+  .wallet-btn:hover { background: var(--color-accent-border-faint); }
   .wallet-btn:disabled { opacity: 0.5; cursor: not-allowed; }
   .wallet-btn.connected {
-    border-color: rgba(52, 211, 153, 0.3);
-    background: rgba(52, 211, 153, 0.08);
-    color: #34d399;
+    border-color: var(--color-success-border-emphasis);
+    background: var(--color-success-bg);
+    color: var(--color-success);
   }
   .wallet-dot {
     display: inline-block;
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: #34d399;
+    background: var(--color-success);
     margin-right: 6px;
     animation: pulse 2s infinite;
   }
@@ -117,11 +144,47 @@
     border-radius: 6px;
     font-size: 0.75rem;
     cursor: pointer;
-    border: 1px solid rgba(255,255,255,0.08);
+    border: 1px solid var(--color-border-subtle);
     background: transparent;
-    color: #64748b;
+    color: var(--color-text-subtle);
     transition: all 0.15s;
   }
-  .disconnect-btn:hover { color: #f87171; border-color: rgba(248, 113, 113, 0.3); }
+  .disconnect-btn:hover { color: var(--color-error); border-color: var(--color-error-border); }
   @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+  .theme-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.125rem;
+    padding: 0.2rem;
+    border-radius: 8px;
+    border: 1px solid var(--color-toggle-border);
+    background: var(--color-toggle-bg);
+  }
+  .theme-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    border: none;
+    border-radius: 6px;
+    background: transparent;
+    color: var(--color-toggle-icon);
+    cursor: pointer;
+    transition: color 0.15s, background 0.15s;
+  }
+  .theme-btn:hover {
+    color: var(--color-toggle-icon-hover);
+    background: var(--color-hover-overlay);
+  }
+  .theme-btn.active {
+    color: var(--color-toggle-active);
+    background: var(--color-toggle-active-bg);
+  }
+  .theme-btn :global(svg) {
+    width: 1rem;
+    height: 1rem;
+  }
 </style>

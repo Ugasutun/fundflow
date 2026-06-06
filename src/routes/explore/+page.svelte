@@ -66,26 +66,26 @@
     margin-bottom: 2rem;
     flex-wrap: wrap;
   }
-  .page-title { font-size: 1.75rem; font-weight: 600; color: #f1f5f9; margin: 0 0 0.25rem; letter-spacing: -0.02em; }
-  .page-sub { font-size: 0.875rem; color: #475569; margin: 0; }
+  .page-title { font-size: 1.75rem; font-weight: 600; color: var(--color-heading); margin: 0 0 0.25rem; letter-spacing: -0.02em; }
+  .page-sub { font-size: 0.875rem; color: var(--color-text-dim); margin: 0; }
   .search {
     padding: 0.5rem 1rem;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.08);
+    background: var(--color-input-bg);
+    border: 1px solid var(--color-input-border);
     border-radius: 8px;
-    color: #e2e8f0;
+    color: var(--color-text);
     font-family: 'DM Mono', monospace;
     font-size: 0.85rem;
     width: 220px;
     outline: none;
     transition: border-color 0.15s;
   }
-  .search:focus { border-color: rgba(125,211,252,0.3); }
-  .search::placeholder { color: #334155; }
+  .search:focus { border-color: var(--color-accent-border-focus); }
+  .search::placeholder { color: var(--color-text-faint); }
   .projects-count {
     font-family: 'DM Mono', monospace;
     font-size: 0.75rem;
-    color: #334155;
+    color: var(--color-text-faint);
     margin-bottom: 1rem;
     letter-spacing: 0.05em;
   }
@@ -99,15 +99,15 @@
     align-items: center;
     gap: 0.75rem;
     padding: 3rem 0;
-    color: #475569;
+    color: var(--color-text-dim);
     font-family: 'DM Mono', monospace;
     font-size: 0.875rem;
   }
-  .state-msg.error { color: #f87171; }
+  .state-msg.error { color: var(--color-error); }
   .spinner {
     width: 18px; height: 18px;
-    border: 2px solid rgba(125,211,252,0.2);
-    border-top-color: #7dd3fc;
+    border: 2px solid var(--color-spinner-track);
+    border-top-color: var(--color-spinner-head);
     border-radius: 50%;
     animation: spin 0.8s linear infinite;
     flex-shrink: 0;

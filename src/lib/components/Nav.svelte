@@ -57,7 +57,7 @@
     position: sticky;
     top: 0;
     z-index: 100;
-    background: rgba(10, 15, 13, 0.85);
+    background: var(--color-nav-surface);
   }
 
   .logo {
@@ -92,7 +92,7 @@
 
   .nav-link:hover, .nav-link.active {
     color: var(--color-text);
-    background: rgba(29,158,117,0.08);
+    background: var(--color-brand-hover-bg);
   }
 
   .nav-link.active { color: var(--color-brand); }
@@ -113,7 +113,7 @@
 
   .btn-connect {
     background: var(--color-brand);
-    color: #04342C;
+    color: var(--color-brand-on);
     border: none;
     padding: 8px 16px;
     border-radius: 8px;

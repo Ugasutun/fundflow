@@ -20,12 +20,13 @@
 		"svelte-check": "^4.4.6",
 		"tailwindcss": "^4.3.0",
 		"typescript": "^6.0.2",
-		"vite": "^8.0.7"
+		"vite": "^8.0.16"
 	},
 	"dependencies": {
 		"@wagmi/core": "^3.5.0",
 		"ethers": "^6.16.0",
 		"graphql-request": "^7.4.0",
+		"heroicons-svelte": "^2.0.2",
 		"viem": "^2.52.2"
 	}
 }
