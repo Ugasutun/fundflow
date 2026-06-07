@@ -1,11 +1,41 @@
 <script lang="ts">
   import { walletAddress, connectWallet, isConnecting } from '$lib/stores/wallet';
   import { goto } from '$app/navigation';
-
+  import {ethers} from 'ethers';
+  let searchInput = $state('');
+  let searchError = $state('');
   function handleExplore() { goto('/explore'); }
   function handleProfile() {
     if ($walletAddress) goto(`/profile/${$walletAddress}`);
     else connectWallet();
+  }
+  async function handleSearch(){
+    searchError = '';
+    const query = searchInput.trim();
+    if (!query){
+      return;
+    }
+    try{
+      // Wallet address
+      if(ethers.isAddress(query)){
+        goto(`/profile/${query}`);
+        return;
+      }
+      //ENS name
+      const provider = ethers.getDefaultProvider();
+
+      const address = await provider.resolveName(query);
+
+      if (!address) {
+        searchError = 'ENS name could not be resolved';
+        return;
+      }
+
+      goto(`/profile/${address}`);
+          }
+    catch{
+      searchError = 'Invalid wallet address or ENS name';
+    }
   }
 </script>
 
@@ -24,7 +54,18 @@
     Connect your wallet to see your real-time funding streams, contribution history,
     and how much you've earned across Web3 open-source projects.
   </p>
+  <div class="search-container">
+    <input class="search-input" bind:value={searchInput} 
+    type="text" placeholder="Enter wallet address or ENS name" 
+    onkeydown={(e) => e.key === 'Enter' && handleSearch()}/>
+    <button class="btn-ghost" onclick={handleSearch}>
+      Search
+    </button>
+  </div>
 
+  {#if searchError}
+    <p class="search-error">{searchError}</p>
+  {/if}
   <div class="hero-actions">
     <button class="btn-primary" onclick={handleProfile} disabled={$isConnecting}>
       {$walletAddress ? 'View my profile' : $isConnecting ? 'Connecting...' : 'Connect wallet'}
@@ -127,6 +168,29 @@
     border-radius: 14px;
     padding: 1.5rem;
     transition: border-color 0.2s;
+  }
+  .search-container {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .search-input {
+    width: min(420px, 100%);
+    padding: 0.7rem 1rem;
+    border-radius: 10px;
+    border: 1px solid var(--color-border-muted);
+    background: var(--color-card-bg);
+    color: var(--color-text);
+    font-family: inherit;
+  }
+
+  .search-error {
+    color: #ff6b6b;
+    margin-bottom: 1rem;
+    font-size: 0.85rem;
   }
   .feature-card:hover { border-color: var(--color-accent-border-card-subtle); }
   .feature-icon { font-size: 1.4rem; margin-bottom: 0.75rem; color: var(--color-accent); }
