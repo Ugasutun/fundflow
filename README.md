@@ -1,11 +1,10 @@
 # FundFlow
 
-> A contributor funding dashboard for Web3 open-source projects, built on the [Drips protocol](https://drips.network).
+> Decentralized grant management and distribution platform built on Stellar and Soroban smart contracts.
 
-🔴 **Live Demo:** https://fundflow-app.vercel.app
-
-![FundFlow](https://img.shields.io/badge/built%20on-Drips-7dd3fc?style=flat-square)
-![SvelteKit](https://img.shields.io/badge/SvelteKit-TypeScript-orange?style=flat-square)
+![Stellar](https://img.shields.io/badge/built%20on-Stellar-7dd3fc?style=flat-square)
+![Soroban](https://img.shields.io/badge/smart%20contracts-Soroban-orange?style=flat-square)
+![Next.js](https://img.shields.io/badge/frontend-Next.js-black?style=flat-square)
 ![License](https://img.shields.io/badge/license-MIT-green?style=flat-square)
 ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square)
 
@@ -13,38 +12,52 @@
 
 ## What is FundFlow?
 
-FundFlow is an open-source web app that bridges your GitHub identity with your on-chain wallet activity on the [Drips protocol](https://drips.network).
+FundFlow is an open-source decentralized application that enables organizations, DAOs, and protocols to create on-chain grant pools on the Stellar network and distribute funding to open-source contributors transparently and automatically via Soroban smart contracts.
 
-The Drips protocol allows Web3 projects to stream continuous funding (in DAI/ETH) to their open-source contributors directly on-chain. FundFlow makes this activity visible and accessible — giving contributors a single dashboard to track how much they've earned, who is funding them, and which projects are actively paying contributors.
+Grant creators deposit XLM into a smart contract pool. Contributors submit proposals on-chain. The community votes on applications, and funds are distributed automatically to approved contributors — no intermediaries, no trust required.
 
 ---
 
 ## Features
 
-### 🔗 Wallet Connect
-Connect your Ethereum wallet (MetaMask, Rabby, or any EIP-1193 compatible wallet) to instantly load your on-chain funding activity.
+### Grant pool creation
+Organizations deposit XLM or Stellar tokens into a Soroban smart contract pool with a defined deadline and voting rules. The pool is fully on-chain and transparent.
 
-### ⟳ Live Funding Streams
-See all active Drips funding streams flowing to and from your wallet address in real time. Each stream card shows:
-- Amount per month (in DAI)
-- Total streamed so far
-- Stream start date
-- Active or paused status
+### Contributor applications
+Contributors submit grant proposals directly on-chain. Each application includes a proposal description and requested amount. Applications are publicly visible and verifiable.
 
-### ◈ Contributor Profile
-Merge your GitHub identity with your wallet address into a unified contributor profile. Link your GitHub username to display your:
-- GitHub avatar and bio
-- Public repositories
-- On-chain funding streams side by side
+### On-chain voting
+Community members vote on applications through the smart contract. Votes are recorded on-chain and cannot be tampered with.
 
-### ↗ Project Explorer
-Browse Web3 open-source projects that are actively funding their contributors via Drips. Search and filter projects by name to find opportunities.
+### Automatic fund distribution
+Pool creators distribute funds to approved applicants via the Soroban contract. Tokens are transferred directly to the contributor's Stellar wallet with no intermediary.
 
-### 🌙 Dark / Light Mode
-Switch between dark and light themes. Your preference is saved automatically.
+### Freighter wallet integration
+Connect your Stellar wallet via the Freighter browser extension. All transactions are signed locally and submitted to the Stellar network.
 
-### 🔗 Share Profile
-Copy your FundFlow profile link to share with others or include in job applications.
+---
+
+## Architecture
+fundflow/
+├── contract/          # Rust/Soroban smart contract
+│   └── fundflow-contract/
+│       ├── src/
+│       │   └── lib.rs         # Contract logic
+│       └── Cargo.toml
+├── backend/           # Node.js/TypeScript REST API
+│   └── src/
+│       ├── index.ts           # Express server entry point
+│       ├── routes/
+│       │   ├── pools.ts       # Pool endpoints
+│       │   └── applications.ts # Application endpoints
+│       └── services/
+│           └── stellar.ts     # Stellar SDK integration
+└── frontend/          # Next.js frontend
+└── app/
+├── page.tsx           # Homepage
+├── pools/             # Pool explorer + creation
+├── apply/             # Grant application form
+└── dashboard/         # Creator dashboard
 
 ---
 
@@ -52,117 +65,118 @@ Copy your FundFlow profile link to share with others or include in job applicati
 
 | Layer | Technology |
 |-------|------------|
-| Framework | SvelteKit + TypeScript |
-| Styling | TailwindCSS + custom CSS variables |
-| Web3 | ethers.js v6, ENS resolution |
-| Blockchain data | Drips GraphQL API |
-| Developer data | GitHub REST API |
-| Icons | heroicons-svelte |
-| Deployment | Vercel |
+| Smart contract | Rust + Soroban SDK |
+| Blockchain | Stellar Network (Testnet/Mainnet) |
+| Backend | Node.js + TypeScript + Express |
+| Frontend | Next.js 14 + React + TypeScript |
+| Styling | TailwindCSS |
+| Wallet | Freighter (Stellar wallet extension) |
+| Stellar SDK | @stellar/stellar-sdk |
 
 ---
 
 ## Getting started
 
 ### Prerequisites
-- Node.js 18 or higher
-- A browser wallet extension (MetaMask or Rabby recommended)
+- Node.js 18+
+- Rust + Cargo
+- [Freighter wallet](https://freighter.app) browser extension
+- A Stellar testnet account (get one at [Stellar Laboratory](https://laboratory.stellar.org))
 
-### Installation
+### 1. Clone the repository
 
 ```bash
-# Clone the repository
 git clone https://github.com/Ugasutun/fundflow.git
-
-# Navigate into the project
 cd fundflow
+```
 
-# Install dependencies
+### 2. Set up the smart contract
+
+```bash
+cd contract/fundflow-contract
+cargo build
+```
+
+### 3. Set up the backend
+
+```bash
+cd backend
 npm install
-
-# Start the development server
+cp .env.example .env
+# Fill in your CONTRACT_ID and ADMIN_ADDRESS in .env
 npm run dev
 ```
 
-Open [http://localhost:5173](http://localhost:5173) in your browser.
+### 4. Set up the frontend
 
-### Environment variables
-
-No API keys are required for basic usage. Both the Drips GraphQL API and GitHub REST API are publicly accessible.
-
-For higher GitHub API rate limits, create a `.env` file in the root:
-
-```env
-VITE_GITHUB_TOKEN=your_github_personal_access_token
+```bash
+cd frontend
+npm install
+npm run dev
 ```
 
----
-
-## Project structure
-fundflow/
-├── src/
-│   ├── lib/
-│   │   ├── api/
-│   │   │   ├── drips.ts          # Drips GraphQL API client
-│   │   │   └── github.ts         # GitHub REST API client
-│   │   ├── components/
-│   │   │   ├── Navbar.svelte     # Navigation with wallet connect + theme toggle
-│   │   │   ├── StreamCard.svelte # Individual funding stream display
-│   │   │   ├── ProjectCard.svelte# Project card for explorer
-│   │   │   └── Skeleton.svelte   # Loading skeleton screens
-│   │   └── stores/
-│   │       ├── wallet.ts         # Wallet connection state
-│   │       └── theme.ts          # Dark/light mode state
-│   └── routes/
-│       ├── +page.svelte                    # Homepage
-│       ├── explore/+page.svelte            # Project explorer
-│       └── profile/[address]/+page.svelte  # Contributor profile
-├── static/
-├── CONTRIBUTING.md
-├── README.md
-└── package.json
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ---
 
-## How it works
+## Smart contract functions
 
-1. **Connect your wallet** — FundFlow reads your public Ethereum address
-2. **Fetches your streams** — queries the Drips GraphQL API for all incoming and outgoing funding streams associated with your address
-3. **Fetches your GitHub data** — optionally link your GitHub username to display your repos and identity alongside your on-chain data
-4. **Displays everything** — presents your funding activity in a clean, readable dashboard
+| Function | Description |
+|----------|-------------|
+| `create_pool` | Create a new grant pool with XLM deposit |
+| `apply` | Submit a grant application to a pool |
+| `vote` | Vote on a grant application |
+| `distribute` | Distribute funds to an approved applicant |
+| `get_pool` | Fetch a pool by ID |
+| `get_application` | Fetch an application by ID |
+| `get_pool_applications` | Fetch all applications for a pool |
+| `pool_count` | Get total number of pools |
 
-> FundFlow is read-only. It never asks you to sign a transaction or send funds.
+---
+
+## API endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/pools` | Fetch all grant pools |
+| GET | `/pools/:id` | Fetch a single pool |
+| POST | `/pools` | Create a new pool |
+| GET | `/pools/:id/applications` | Fetch applications for a pool |
+| GET | `/applications/:id` | Fetch a single application |
+| POST | `/applications` | Submit an application |
+| POST | `/applications/:id/vote` | Vote on an application |
+| POST | `/applications/:id/distribute` | Distribute funds |
+| GET | `/health` | API health check |
 
 ---
 
 ## Contributing
 
-We welcome contributions of all kinds! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on how to get started.
+We welcome contributions of all kinds! Please read [CONTRIBUTING.md](CONTRIBUTING.md) before submitting a pull request.
 
-Looking for something to work on? Check out our [open issues](https://github.com/Ugasutun/fundflow/issues) — issues labeled `good first issue` are great for newcomers.
+Looking for something to work on? Check our [open issues](https://github.com/Ugasutun/fundflow/issues) — issues labeled `good first issue` are great for newcomers.
 
 ---
 
 ## Roadmap
 
-- [ ] Token price conversion (DAI → USD)
-- [ ] Contributor leaderboard page
-- [ ] WalletConnect v2 support
-- [ ] ENS reverse lookup on profile pages
-- [ ] Drips splits visualizer
-- [ ] Project detail page
-- [ ] Mobile responsive navigation
-- [ ] Transaction history on profile page
-- [ ] Search by wallet address or ENS name
+- [ ] Deploy contract to Stellar Testnet
+- [ ] Deploy frontend to Vercel
+- [ ] Add token support beyond XLM (USDC, custom tokens)
+- [ ] Add proposal IPFS storage for long-form content
+- [ ] Add multi-sig voting support
+- [ ] Add grant milestone tracking
+- [ ] Mobile responsive improvements
+- [ ] Add leaderboard for top funded contributors
 
 ---
 
 ## License
 
-MIT — feel free to use this project as a reference or build on top of it.
+MIT
 
 ---
 
 ## Acknowledgements
 
-Built on top of the [Drips protocol](https://drips.network) by [Radicle](https://radicle.xyz).
+Built on [Stellar](https://stellar.org) and [Soroban](https://soroban.stellar.org) smart contracts.
