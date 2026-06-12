@@ -33,8 +33,8 @@ export const useWallet = create<WalletStore>((set) => ({
       }
       const { address } = await getAddress();
       set({ address, isConnected: true, isConnecting: false });
-    } catch (e: any) {
-      set({ error: e?.message ?? 'Connection failed', isConnecting: false });
+    } catch (e: unknown) {
+      set({ error: e instanceof Error ? e.message : 'Connection failed', isConnecting: false });
     }
   },
 

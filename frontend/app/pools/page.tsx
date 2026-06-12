@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { getPools } from '@/lib/api';
+import { CountdownTimer } from '@/components/CountdownTimer';
 import { GrantPool } from '@/types';
 
 export default function PoolsPage() {
@@ -59,9 +60,9 @@ export default function PoolsPage() {
                 </div>
                 <h3 className="font-semibold text-gray-900 dark:text-gray-50 mb-1">{pool.name}</h3>
                 <p className="text-sm text-gray-500 line-clamp-2 mb-4">{pool.description}</p>
-                <div className="flex justify-between text-xs font-mono text-gray-400">
+                <div className="flex justify-between items-center text-xs font-mono text-gray-400 gap-4">
                   <span>{(pool.remaining_amount / 10_000_000).toFixed(0)} XLM left</span>
-                  <span>Deadline: {new Date(pool.deadline * 1000).toLocaleDateString()}</span>
+                  <CountdownTimer deadline={pool.deadline} />
                 </div>
               </div>
             </Link>
