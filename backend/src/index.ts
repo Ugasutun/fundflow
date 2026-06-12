@@ -3,6 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import poolsRouter from './routes/pools';
 import applicationsRouter from './routes/applications';
+import leaderboardRouter from './routes/leaderboard';
 
 dotenv.config();
 
@@ -15,6 +16,7 @@ app.use(express.json());
 // Routes
 app.use('/pools', poolsRouter);
 app.use('/applications', applicationsRouter);
+app.use('/leaderboard', leaderboardRouter);
 
 // Health check
 app.get('/health', (req, res) => {

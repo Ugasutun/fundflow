@@ -20,6 +20,12 @@ export interface Application {
   amount_requested: number;
 }
 
+export interface LeaderboardEntry {
+  address: string;
+  totalReceived: number;
+  grantCount: number;
+}
+
 export interface WalletState {
   address: string | null;
   isConnected: boolean;
