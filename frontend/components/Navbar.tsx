@@ -1,9 +1,25 @@
 'use client';
 import Link from 'next/link';
+import { useEffect } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { useWallet } from '@/lib/wallet';
+import { getXLMBalance } from '@/lib/stellar';
 
 export default function Navbar() {
   const { address, isConnected, isConnecting, connect, disconnect } = useWallet();
+
+  const { data: balance, isLoading: balanceLoading, refetch: refetchBalance } = useQuery({
+    queryKey: ['xlm-balance', address],
+    queryFn: () => (address ? getXLMBalance(address) : null),
+    enabled: !!address,
+    refetchInterval: 10000,
+  });
+
+  useEffect(() => {
+    if (address) {
+      refetchBalance();
+    }
+  }, [address, refetchBalance]);
 
   const short = address
     ? `${address.slice(0, 4)}...${address.slice(-4)}`
@@ -29,6 +45,15 @@ export default function Navbar() {
           {isConnected ? (
             <div className="flex items-center gap-3">
               <span className="text-sm font-mono text-gray-500">{short}</span>
+              {balanceLoading ? (
+                <span className="text-sm font-mono text-gray-400 bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded animate-pulse">
+                  ···
+                </span>
+              ) : (
+                <span className="text-sm font-mono text-blue-600">
+                  {balance ? `${balance} XLM` : '0 XLM'}
+                </span>
+              )}
               <button
                 onClick={disconnect}
                 className="text-sm px-3 py-1.5 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors"
