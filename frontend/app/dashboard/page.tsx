@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useWallet } from '@/lib/wallet';
 import { getPools } from '@/lib/api';
+import { CountdownTimer } from '@/components/CountdownTimer';
 import { GrantPool } from '@/types';
 
 export default function DashboardPage() {
@@ -79,9 +80,12 @@ export default function DashboardPage() {
                     {(pool.remaining_amount / 10_000_000).toFixed(0)} XLM remaining
                   </p>
                 </div>
-                <span className={`text-xs px-2 py-1 rounded-full font-mono ${pool.is_active ? 'bg-green-50 text-green-700 border border-green-100' : 'bg-gray-100 text-gray-500'}`}>
-                  {pool.is_active ? 'Active' : 'Closed'}
-                </span>
+                <div className="flex flex-col items-end gap-1">
+                  <CountdownTimer deadline={pool.deadline} />
+                  <span className={`text-xs px-2 py-1 rounded-full font-mono ${pool.is_active ? 'bg-green-50 text-green-700 border border-green-100' : 'bg-gray-100 text-gray-500'}`}>
+                    {pool.is_active ? 'Active' : 'Closed'}
+                  </span>
+                </div>
               </div>
             </Link>
           ))}
