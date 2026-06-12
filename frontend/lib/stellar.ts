@@ -38,6 +38,20 @@ export function formatXLM(stroops: string | number): string {
   return val.toLocaleString('en-US', { maximumFractionDigits: 2 });
 }
 
+export async function getXLMBalance(publicKey: string): Promise<string | null> {
+  try {
+    const account = await horizon.loadAccount(publicKey);
+    const xlmBalance = account.balances.find((b: { asset_type: string }) => b.asset_type === 'native');
+    if (!xlmBalance) return null;
+    const rawBalance = (xlmBalance as { balance: string }).balance;
+    const balance = parseFloat(rawBalance);
+    return balance.toLocaleString('en-US', { maximumFractionDigits: 2 });
+  } catch (e) {
+    console.error('Failed to fetch XLM balance:', e);
+    return null;
+  }
+}
+
 export function xlmToStroops(xlm: number): string {
   return (xlm * 10_000_000).toFixed(0);
 }

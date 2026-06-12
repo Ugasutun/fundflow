@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GrantPool, Application } from '@/types';
+import { GrantPool, Application, LeaderboardEntry } from '@/types';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
 
@@ -70,5 +70,14 @@ export async function voteOnApplication(
     return true;
   } catch {
     return false;
+  }
+}
+
+export async function getLeaderboard(period: 'all' | 'month' = 'all'): Promise<LeaderboardEntry[]> {
+  try {
+    const { data } = await api.get('/leaderboard', { params: { period } });
+    return data;
+  } catch {
+    return [];
   }
 }

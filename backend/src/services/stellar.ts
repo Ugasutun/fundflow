@@ -57,6 +57,53 @@ export async function getPool(poolId: number) {
   }
 }
 
+export async function getLeaderboard(period: 'all' | 'month' = 'all') {
+  try {
+    const base = `${HORIZON_URL}/payments?limit=100&order=desc`;
+    const url = new URL(base);
+    if (period === 'month') {
+      const oneMonthAgo = Math.floor(Date.now() / 1000) - 30 * 24 * 60 * 60;
+      url.searchParams.set('min_time', String(oneMonthAgo));
+    }
+
+    const allPayments: any[] = [];
+    let cursor: string | undefined = undefined;
+    let currentUrl = url.toString();
+
+    while (currentUrl) {
+      const res = await fetch(currentUrl);
+      const json = (await res.json()) as any;
+      allPayments.push(...(json._embedded?.records || []));
+      const nextLink = json._embedded?.records && json._links?.next?.href;
+      if (!nextLink) break;
+      currentUrl = nextLink.startsWith('http') ? nextLink : `${HORIZON_URL}${nextLink}`;
+    }
+
+    const contributions = new Map<string, { totalReceived: number; count: number }>();
+    for (const payment of allPayments) {
+      if (!payment.to || payment.type !== 'payment') continue;
+      const recipient = payment.to;
+      const amount = parseFloat(payment.amount || '0');
+      const existing = contributions.get(recipient) || { totalReceived: 0, count: 0 };
+      contributions.set(recipient, {
+        totalReceived: existing.totalReceived + amount,
+        count: existing.count + 1,
+      });
+    }
+
+    return Array.from(contributions.entries())
+      .map(([address, entry]) => ({
+        address,
+        totalReceived: entry.totalReceived,
+        grantCount: entry.count,
+      }))
+      .sort((a, b) => b.totalReceived - a.totalReceived || b.grantCount - a.grantCount);
+  } catch (error) {
+    console.error('getLeaderboard error:', error);
+    return [];
+  }
+}
+
 export async function getApplication(appId: number) {
   try {
     const contract = new StellarSdk.Contract(CONTRACT_ID);
