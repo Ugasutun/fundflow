@@ -6,7 +6,7 @@ export const HORIZON_URL = 'https://horizon-testnet.stellar.org';
 
 export const CONTRACT_ID = process.env.NEXT_PUBLIC_CONTRACT_ID || '';
 
-export const server = new StellarSdk.SorobanRpc.Server(SOROBAN_RPC_URL);
+export const server = new StellarSdk.rpc.Server(SOROBAN_RPC_URL);
 export const horizon = new StellarSdk.Horizon.Server(HORIZON_URL);
 
 export async function getContractValue(
